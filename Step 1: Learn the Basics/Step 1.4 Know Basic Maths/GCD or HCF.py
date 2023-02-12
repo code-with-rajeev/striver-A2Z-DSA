@@ -7,7 +7,7 @@ Output:
 10 5
 
 """
-def gcd(self, a,b):
+def gcd(a,b):
     if b==0:
         return a
     else:
