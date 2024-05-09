@@ -1,5 +1,3 @@
-//https://www.geeksforgeeks.org/problems/largest-subarray-with-0-sum/1?category%5B%5D=Hash&company%5B%5D=Amazon&page=1&query=category%5B%5DHashcompany%5B%5DAmazonpage1company%5B%5DAmazoncategory%5B%5DHash&utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=largest-subarray-with-0-sum
-
 //{ Driver Code Starts
 //Initial Template for C++
 
@@ -12,10 +10,27 @@ using namespace std;
 
 class Solution{
     public:
-    int maxLen(vector<int>&A, int n)
+    int maxLen(vector<int>&nums, int n)
     {   
-        // Your code here
+        int maxLength = 0;
+        int sum = 0;
+        unordered_map<int, int> sumMap; // Map to store prefix sums and their corresponding indices
+        sumMap[0] = -1; // Initialize map with sum 0 at index -1
+
+        for (int i = 0; i < n; ++i) {
+            sum += nums[i];
+
+            // If sum is already present in map, update the maxLength
+            if (sumMap.find(sum) != sumMap.end())
+                maxLength = max(maxLength, i - sumMap[sum]);
+
+            // If sum is not present in map, store it along with its index
+            else
+                sumMap[sum] = i;
+        }
+        return maxLength;
     }
+
 };
 
 
