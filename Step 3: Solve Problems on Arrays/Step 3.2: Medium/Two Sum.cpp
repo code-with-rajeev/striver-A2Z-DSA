@@ -1,26 +1,22 @@
 // https://leetcode.com/problems/two-sum/description/
-
 #include <vector>
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        int size = nums.size();
-        int i = 0, j = 1;
 
-        while(true){
-            if(nums[i]+nums[j]==target) break;
-            if(j+1 == size){
-                i++;
-                j = i+1;
+//C++ provides an in-built function called next_permutation() which directly returns the lexicographically next greater permutation of the input.
+        map<int,int> mp;
+        int size = nums.size();
+        mp[nums[0]] = 0;
+        for(int i = 1 ; i < size; i++){
+            if(mp.find(target-nums[i]) != mp.end()){
+                return vector<int> {mp[target-nums[i]],i};
             }
             else{
-                j++;
+                mp[nums[i]] = i;
             }
-            
-            
         }
-    vector<int> v = {i,j};
-    return v;
+        return {};
     }
 
     
