@@ -1,42 +1,59 @@
 // https://www.naukri.com/code360/problems/longest-subarray-with-sum-k_6682399
 
-int longestSubarrayWithSumK(vector<int> a, long long k) {
-    // Write your code here
-    long long sum = 0;
-    int left = 0, right = 0;
-    int len = 0, max_len = 0;
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
 
-    while(right<a.size() && left<a.size()){
+
+// } Driver Code Ends
+class Solution{
+    public:
+    int lenOfLongSubarr(int A[],  int N, int K) 
+    { 
+        // Complete the function
+        map<int,int> mp;
+        int sum = 0;
+        mp[0] = -1; //to handle the subarray start at index 0
+        int ans = 0; // stores prefix sum
         
-        if(sum == k){
-            len = right-left;
-            if(right<a.size()){
-                if(a[right]==0){
-                    right++;
-                } 
-                else {
-                    sum-= a[left];
-                    left++;
-                }
+        for(int i = 0; i < N ; i++){
+            sum+=A[i];
+            
+            if(mp.find(sum-K) != mp.end()){
+                ans = max(ans, i- mp[sum-K]);
             }
-            max_len = max(len,max_len);
+            
+            //We only update sum if it is not already present to maximize the length
+            //We must store the first occurence of each sum.
+            if(mp.find(sum) == mp.end()){
+                mp[sum] = i;
+            }
+            
         }
+        return ans;
+    } 
 
-        else if(sum<k){
-            sum+=a[right];
-            right++;
-        }
+};
 
-        else{
-            sum-= a[left];
-            left++;
-        }
-    }
+//{ Driver Code Starts.
 
-    if(sum==k){
-        len = right-left;
-        max_len = max(len,max_len);
-    }
-    
-    return max_len;
+int main() {
+	//code
+	
+	int t;cin>>t;
+	while(t--)
+	{
+	    int n, k;
+	    cin>> n >> k;
+	    int a[n];
+	    
+	    for(int i=0;i<n;i++)
+	        cin>>a[i];
+	   Solution ob;
+	   cout << ob.lenOfLongSubarr(a, n , k)<< endl;
+	    
+	}
+	
+	return 0;
 }
+// } Driver Code Ends
