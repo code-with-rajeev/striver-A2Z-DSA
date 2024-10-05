@@ -6,35 +6,23 @@ public:
         int size = nums.size();
         int left = 0, right  = size-1;
         int i = 0;
-        while(i<right && left < right){
-            if(nums[i]==1){
-                i++;
+
+        // left is the track of upcoming 0 to be placed
+        // right is the track of upcoming 2 to be placed
+        // i is the iterator
+        
+        while(i<=right){
+            if(nums[i]==0){
+                swap(nums[i],nums[left]);
+                i++;left++;
             }
-            else if(nums[i]==0){
-                if(nums[left]==0){
-                    left++;
+            else if(nums[i]==2){
+                swap(nums[i],nums[right]);
+                    right--;                    
                 }
-                else{
-                    swap(nums[left],nums[i]);
-                    left++;                    
-                }
-                i++;
-            }
             else{
-                if(nums[right]==2){
-                    right--;
-                }
-                else{
-                    swap(nums[right],nums[i]);
-                    right--;
-                }
+                i++;
             }
-        }
-        if(nums[i]==0){
-            swap(nums[i],nums[left]);
-        }
-        if(nums[i]==2){
-            swap(nums[i], nums[right]);
         }
     }
 };
